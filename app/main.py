@@ -30,7 +30,13 @@ def health() -> dict[str, str]:
     return {"status": "ok"}
 
 
-@app.post("/ask")
+@app.post(
+    "/ask",
+    responses={
+        400: {"description": "Corpo della richiesta non leggibile"},
+        401: {"description": "Chiave API mancante o sbagliata"},
+    },
+)
 def ask(domanda: Domanda, x_api_key: str | None = Header(default=None)) -> Risposta:
     controlla_chiave(x_api_key)
     modalita = os.environ.get("MODALITA", "finta")
