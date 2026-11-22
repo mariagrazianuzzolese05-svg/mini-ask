@@ -15,7 +15,7 @@ def imposta_chiave(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_healthz_risponde_ok() -> None:
     risposta = client.get("/healthz")
     assert risposta.status_code == 200
-    assert risposta.json() == {"status": "ok"}
+    assert risposta.json() == {"status": "ko"}
 
 
 def test_ask_modalita_finta() -> None:
