@@ -1,0 +1,23 @@
+name: health
+on:
+  schedule:
+    - cron: "17 7 * * *"
+  workflow_dispatch:
+
+jobs:
+  healthz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Controlla /healthz
+        env:
+          URL: https://mini-ask.onrender.com/healthz
+        run: |
+          for tentativo in 1 2 3; do
+            if curl --fail --silent --show-error --max-time 60 "$URL"; then
+              exit 0
+            fi
+            sleep 20
+          done
+          echo "::error::$URL non risponde dopo tre tentativi"
+          exit 1
