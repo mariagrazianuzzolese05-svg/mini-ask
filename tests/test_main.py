@@ -17,6 +17,7 @@ def test_healthz_risponde_ok() -> None:
     assert risposta.status_code == 200
     assert risposta.json() == {"status": "ok"}
 
+
 def test_home_porta_a_docs() -> None:
     risposta = client.get("/", follow_redirects=False)
     assert risposta.status_code == 307

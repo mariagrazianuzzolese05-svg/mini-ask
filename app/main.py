@@ -1,8 +1,8 @@
 import os
 
 from fastapi import FastAPI, Header, HTTPException
-from pydantic import BaseModel, Field
 from fastapi.responses import RedirectResponse
+from pydantic import BaseModel, Field
 
 app = FastAPI(title="mini-ask")
 
@@ -24,6 +24,7 @@ def controlla_chiave(chiave: str | None) -> None:
     attesa = os.environ.get("API_KEY")
     if attesa is None or chiave != attesa:
         raise HTTPException(status_code=401, detail="Chiave API mancante o sbagliata")
+
 
 @app.get("/", include_in_schema=False)
 def home() -> RedirectResponse:
