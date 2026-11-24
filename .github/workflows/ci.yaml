@@ -16,4 +16,4 @@ jobs:
       - run: ruff check .
       - run: ruff format --check .
       - run: mypy --strict app tests
-      - run: pytest
+      - run: pytest --cov=app --cov-fail-under=90
