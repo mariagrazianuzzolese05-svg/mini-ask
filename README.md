@@ -39,6 +39,7 @@ ruff check . && ruff format --check . && mypy --strict app tests && pytest -q
 
 - **pytest**: unit tests for the endpoints, the API key and the input limits (0, 1, 500, 501 characters).
 - **Schemathesis**: tests generated from the OpenAPI schema. It found two undocumented status codes (400 and 401), now declared in the contract.
+- **mutmut** (mutation testing) on the API key check: the first run killed 10 of 15 mutants (67%), because the tests checked only the status code and not the error message. After adding that check: 15 of 15 (100%). Run with `rm -rf mutants && mutmut run`.
 - **ruff** and **mypy --strict**: linting, formatting and static type checks.
 
 ## CI/CD and monitoring
